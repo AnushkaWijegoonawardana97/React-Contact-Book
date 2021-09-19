@@ -1,0 +1,32 @@
+.contactItem {
+  border-left: 0.25rem solid #16a085;
+  border-radius: 0.5rem;
+  background-color: #f4f4f4;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.contactItem:last-child {
+  margin-bottom: 0rem;
+}
+
+.contactItemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contactItemText {
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+}
+
+.contactUserName {
+  font-weight: 600;
+  color: #2980b9;
+}
+
+i {
+  margin-right: 1rem;
+  min-width: 1rem;
+}
