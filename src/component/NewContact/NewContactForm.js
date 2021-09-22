@@ -1,35 +1,27 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./NewContactForm.module.css";
 
 function NewContactForm(props) {
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-
-  const onUsernameChangeHandler = (e) => {
-    setUsername(e.target.value);
-  };
-  const onAgeChangeHandler = (e) => {
-    setAge(e.target.value);
-  };
-  const onPhoneChangeHandler = (e) => {
-    setPhone(e.target.value);
-  };
-  const onAddressChangeHandler = (e) => {
-    setAddress(e.target.value);
-  };
+  const usernameRef = useRef();
+  const ageRef = useRef();
+  const phoneRef = useRef();
+  const addressRef = useRef();
 
   const onFormSubmitHandler = (e) => {
     e.preventDefault();
 
+    const enteredUsername = usernameRef.current.value;
+    const enteredAge = ageRef.current.value;
+    const enteredPhone = phoneRef.current.value;
+    const enteredAddress = addressRef.current.value;
+
     if (
-      username.trim().length === 0 ||
-      age.trim().length === 0 ||
-      phone.trim().length === 0 ||
-      address.trim().length === 0
+      enteredUsername.trim().length === 0 ||
+      enteredAge.trim().length === 0 ||
+      enteredPhone.trim().length === 0 ||
+      enteredAddress.trim().length === 0
     ) {
-      console.log("invalid input");
+      // console.log("invalid input");
       props.onErrorMsgOpenHandler({
         status: true,
         title: "Required Fileds",
@@ -37,8 +29,8 @@ function NewContactForm(props) {
           "Please complete all the required input filed. Required input fileds are marked using an * mark",
       });
     } else {
-      if (+age < 1) {
-        console.log(age);
+      if (+enteredAge < 1) {
+        // console.log(enteredAge);
         props.onErrorMsgOpenHandler({
           status: true,
           title: "Invalid Input Field",
@@ -46,17 +38,17 @@ function NewContactForm(props) {
         });
       } else {
         const newContactData = {
-          username,
-          age,
-          phone,
-          address,
+          username: enteredUsername,
+          age: enteredAge,
+          phone: enteredPhone,
+          address: enteredAddress,
         };
 
         props.onNewContactSaveHandler(newContactData);
-        setUsername("");
-        setAge("");
-        setPhone("");
-        setAddress("");
+        enteredUsername.current.value = "";
+        enteredAge.current.value = "";
+        enteredPhone.current.value = "";
+        enteredAddress.current.value = "";
       }
     }
   };
@@ -66,24 +58,12 @@ function NewContactForm(props) {
       <div className={styles.newContactFormGroup}>
         <div className={styles.newContactFormControl}>
           <label htmlFor='username'>Username *</label>
-          <input
-            type='text'
-            name='username'
-            id='username'
-            onChange={onUsernameChangeHandler}
-            value={username}
-          />
+          <input type='text' name='username' id='username' ref={usernameRef} />
         </div>
 
         <div className={styles.newContactFormControl}>
           <label htmlFor='age'>Age *</label>
-          <input
-            type='number'
-            name='age'
-            id='age'
-            onChange={onAgeChangeHandler}
-            value={age}
-          />
+          <input type='number' name='age' id='age' ref={ageRef} />
         </div>
       </div>
 
@@ -94,20 +74,13 @@ function NewContactForm(props) {
             type='text'
             name='contactnumber'
             id='contactnumber'
-            onChange={onPhoneChangeHandler}
-            value={phone}
+            ref={phoneRef}
           />
         </div>
 
         <div className={styles.newContactFormControl}>
           <label htmlFor='address'>Address *</label>
-          <input
-            type='text'
-            name='address'
-            id='address'
-            onChange={onAddressChangeHandler}
-            value={address}
-          />
+          <input type='text' name='address' id='address' ref={addressRef} />
         </div>
       </div>
 

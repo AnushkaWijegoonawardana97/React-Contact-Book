@@ -16,7 +16,7 @@ function Modal(props) {
         <button
           className={styles.closeModal}
           onClick={onErrorModalCloseHandler}>
-          <i class='far fa-times-circle'></i>
+          <i className='far fa-times-circle'></i>
         </button>
       </div>
 

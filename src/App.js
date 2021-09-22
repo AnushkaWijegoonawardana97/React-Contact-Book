@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import ReactDOM from "react-dom";
 import ContactList from "./component/Contacts/ContactList";
 import NewContact from "./component/NewContact/NewContact";
 import BackDrop from "./component/UI/BackDrop";
@@ -54,15 +55,17 @@ function App() {
 
   return (
     <Fragment>
-      {error.status && (
-        <BackDrop>
-          <Modal
-            errorTitle={error.title}
-            errorMessage={error.message}
-            onModalCloseHandler={onErrorModalCloseHandler}
-          />
-        </BackDrop>
-      )}
+      {error.status &&
+        ReactDOM.createPortal(
+          <BackDrop>
+            <Modal
+              errorTitle={error.title}
+              errorMessage={error.message}
+              onModalCloseHandler={onErrorModalCloseHandler}
+            />
+          </BackDrop>,
+          document.getElementById("overlayer-root")
+        )}
 
       <div className='container'>
         <h1 className='mainHeading'>Contact List</h1>
